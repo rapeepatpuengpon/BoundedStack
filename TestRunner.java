@@ -60,7 +60,10 @@ public class TestRunner {
     }
 
     private static void testRemove() {
-
+        Station remove = new Station(Arrays.asList("a","b","c")); 
+        check("can remove", remove.remove("b"));
+        check("size delete", remove.size() == 2);
+        check("remove song", !remove.contains("b"));
     }
 
     private static void testObservers() {

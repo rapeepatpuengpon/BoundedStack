@@ -35,4 +35,8 @@ public class Station {
     public boolean contains(String name) {
         return false;
     }
+    public boolean remove(String name) {
+        return false;
+    }
+
 }
