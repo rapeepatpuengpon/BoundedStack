@@ -30,7 +30,6 @@ public class TestRunner {
         testRemove();
         testObservers();
         testProducer();
-        testExposure();
 
         System.out.println(" [pass] = " + pass );
         System.out.println(" [fail] = " + fail );
@@ -38,13 +37,14 @@ public class TestRunner {
 
     // test ชื่อสถานีว่าง , สามารถสร้างสถานีได้ ,  สถานีไม่เป็น null
     private static void testCreater() {
+        System.out.println("=== test Creater ===");
         Station empty = new Station();
         check("name = empty", empty.size() == 0 );
         check("name = notthing", !empty.contains("anything"));
 
         Station name = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi"));
         check("name size = 3", name.size() == 3);
-        check(" have name station", name.contains("ratchaburi"));
+        check("have name station", name.contains("ratchaburi"));
         
         boolean namenull = false;
         try {
@@ -56,25 +56,30 @@ public class TestRunner {
     }
 
     private static void testAdd() {
-
+        System.out.println("Test Add");
+        Station add = new Station();
+        check("can add", add.add("bangkok"));
+        check("size when add", add.size() == 1);
+        check("found station", add.contains("bangkok"));
     }
 
     private static void testRemove() {
-        Station remove = new Station(Arrays.asList("a","b","c")); 
-        check("can remove", remove.remove("b"));
+        System.out.println("=== test Remove ===");
+        Station remove = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi")); 
+        check("can remove", remove.remove("kanchanaburi"));
         check("size delete", remove.size() == 2);
-        check("remove song", !remove.contains("b"));
+        check("remove song", !remove.contains("kanchanaburi"));
     }
 
     private static void testObservers() {
-
+        System.out.println("=== test Observers===");
+        Station obser = new Station(Arrays.asList("ratchaburi" , "kanchanaburi"));
+        check("size is 2", obser.size() == 2);
+        check("find a station", obser.contains("kanchanaburi"));
+        check("can't find station", !obser.contains("phetburi"));
     }
 
     private static void testProducer() {
-
-    }
-
-    private static void testExposure() {
 
     }
 
