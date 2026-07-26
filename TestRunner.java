@@ -32,11 +32,10 @@ public class TestRunner {
         testProducer();
 
         System.out.println("=== test Price ===");
-        check("price = 20", Price.Checkprice(20));
-        check("price > 20", Price.Checkprice(30));
-        check("price = 50", Price.Checkprice(50));
-        check("price < 50", Price.Checkprice(40));
-
+        check("price is 20 bath",Price.Calprice(16, 19) == 20 );
+        check("price is 20 bath",Price.Calprice(19,3) == 20 );
+        check("price is 26 bath",Price.Calprice(19,7) == 26 );
+        
         System.out.println("==========");
         System.out.println(" [pass] = " + pass );
         System.out.println(" [fail] = " + fail );
@@ -63,13 +62,32 @@ public class TestRunner {
         }
         check("name = null", namenull);
     }
-
+    /**
+     * ฟังชันb test การเพิ่มสถานี
+     */
     private static void testAdd() {
         System.out.println("Test Add");
         Station add = new Station();
         check("can add", add.add("bangkok"));
         check("size when add", add.size() == 1);
         check("found station", add.contains("bangkok"));
+        check("add duplicate", !add.add("bangkok"));
+
+        boolean threwemp = false;
+        try {
+            new Station(Arrays.asList(""));
+        } catch (IllegalArgumentException e) {
+           threwemp = true;
+        }
+        check("station is emply", threwemp);
+
+        boolean threwnull = false;
+        try {
+            new Station(null);
+        } catch (IllegalArgumentException e) {
+           threwnull = true;
+        }
+        check("station is null", threwnull);
     }
 
     private static void testRemove() {
