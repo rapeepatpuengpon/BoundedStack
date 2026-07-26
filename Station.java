@@ -106,6 +106,13 @@ public class Station {
         return true;
     }
 
+    /**
+     * ฟังชันแก้ำขช่อสถานนี
+     * 
+     * @param original ชื่อสถานีเดิม
+     * @param change ชื่อสถานีเพิ่มเติม
+     * @return ชื่อสถานีที่แก้ไขแล้ว
+     */
     public String changeName(String original , String change) {
         String new_name_station = original + change;
         return new_name_station;

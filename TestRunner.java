@@ -87,6 +87,11 @@ public class TestRunner {
         check("station is null", threwnull);
     }
 
+    /**
+     * ฟังชั่นสามารถลบได้
+     * ลบขนาด
+     * เช็คสถานียังอยู่ไหม
+     */
     private static void testRemove() {
         System.out.println("=== test Remove ===");
         Station remove = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi")); 
@@ -94,7 +99,10 @@ public class TestRunner {
         check("size delete", remove.size() == 2);
         check("remove station", !remove.contains("kanchanaburi"));
     }
-
+    
+    /**
+     * ดึงค่าสถานนี
+     */
     private static void testObservers() {
         System.out.println("=== test Observers===");
         Station obser = new Station(Arrays.asList("ratchaburi" , "kanchanaburi"));
@@ -103,6 +111,9 @@ public class TestRunner {
         check("can't find station", !obser.contains("phetburi"));
     }
 
+    /**
+     * แก้ไขชื่อจากชื่อเดิม
+     */
     private static void testProducer() {
         System.out.println("=== test Producer ===");
         Station base = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi"));
