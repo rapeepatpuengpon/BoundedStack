@@ -56,4 +56,8 @@ public class Station {
     public boolean remove(String name) {
         return false;
     }
+
+    public boolean add(String name) {
+        return false;
+    }
 }
