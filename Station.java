@@ -24,12 +24,25 @@ public class Station {
      * คัดลอกทั้งขาเข้า และขาออก
      */
 
+    private void checkRep() {
+        assert nameStation != null : "nameStation is not null" ;
+        assert nameStation.size() < max_station;
+
+        Set<String> seen = new HashSet<>();
+        for(String s : nameStation) {
+            assert s != null ;
+            assert s !=  "" ;
+            assert seen.add(s);
+        }
+    }
+
 
     /**
      * ทำชื่อสถานีว่าง
     */
     public Station() {
         this.nameStation = new ArrayList<>();
+        checkRep();
     }
     /**
      * สร้างหมวดสถานีจากชื่อที่ให้
@@ -37,20 +50,32 @@ public class Station {
      * @throws IllegalArgumentException เมื่อ name = null
      */
     public Station(List<String> name) {
-        this.nameStation = new ArrayList<>();    }
+        if(name == null) throw new IllegalArgumentException("name is null");
+        if(name.size() > max_station) throw new IllegalArgumentException("name is full");
+
+        Set<String> seen = new HashSet<>();
+        for(String s : name) {
+            if(s == null) throw new IllegalArgumentException();
+            if(s=="") throw new IllegalArgumentException();
+            if(!seen.add(s)) throw new IllegalArgumentException();
+        }
+
+        this.nameStation = new ArrayList<>(name);   
+        checkRep(); 
+    }
 
     /**
      * ฟังก์ชันคืนค่า จำนวนสถานี
      */
     public int size() {
-        return 0;
+        return nameStation.size();
     }
 
     /**
      * ฟังก์ชัน ตรวจสอบการมีอยู่ของสถานี
      */
     public boolean contains(String name) {
-        return false;
+        return nameStation.contains(name);
     }
 
     public boolean remove(String name) {

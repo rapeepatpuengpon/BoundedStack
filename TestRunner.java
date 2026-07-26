@@ -31,8 +31,17 @@ public class TestRunner {
         testObservers();
         testProducer();
 
+        System.out.println("=== test Price ===");
+        check("price = 20", Price.Checkprice(20));
+        check("price > 20", Price.Checkprice(30));
+        check("price = 50", Price.Checkprice(50));
+        check("price < 50", Price.Checkprice(40));
+
+        System.out.println("==========");
         System.out.println(" [pass] = " + pass );
         System.out.println(" [fail] = " + fail );
+
+        
     }
 
     // test ชื่อสถานีว่าง , สามารถสร้างสถานีได้ ,  สถานีไม่เป็น null
@@ -42,7 +51,7 @@ public class TestRunner {
         check("name = empty", empty.size() == 0 );
         check("name = notthing", !empty.contains("anything"));
 
-        Station name = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi"));
+        Station name = new Station(Arrays.asList("ratchaburi","kanchanaburi","phetburi"));
         check("name size = 3", name.size() == 3);
         check("have name station", name.contains("ratchaburi"));
         
