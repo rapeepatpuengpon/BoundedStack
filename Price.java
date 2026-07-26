@@ -1,4 +1,11 @@
 public class Price {
+    /**
+     * ฟังก์ชัยคำนวณค่าโดยสาร
+     * 
+     * @param start สถานีเริ่มต้น
+     * @param stop สถานนีปลายทาง
+     * @return ส่งค่าโดยสารกลับ
+     */
     static int Calprice(int start, int stop) {
         int all_station = 20;
         int distence = Math.abs(start - stop);
@@ -12,7 +19,7 @@ public class Price {
                 sum = 20;
             }
                 else {
-                  sum = 20 +((count_station - 5) * 2 );
+                  sum = 20 +((count_station - 5) * 2 );  
                 }
         return sum ;
     }
