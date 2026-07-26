@@ -78,8 +78,6 @@ public class TestRunner {
 
     }
 
-    private static void testExposure() {
 
-    }
 
 }
