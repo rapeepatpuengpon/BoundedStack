@@ -5,8 +5,25 @@ import java.util.List;
 import java.util.Set;
 
 public class Station {
-
+    public static final int max_station = 20;
     private final List<String> nameStation;
+
+    /**
+     * Abstraction Fucntion
+     * AF(nameStation) = ชื่อสถานี
+     * 
+     * 
+     * Representation Invariant
+     * nameStation ต้องไม่เป็น null
+     * nameStation ต้องไม่เป็นข้อความเปล่าๆ
+     * nameStation มีจำนวนไม่เกิน 20 สถานี
+     * 
+     * 
+     * Safety from rep exposure
+     * nameStation เป็น final
+     * คัดลอกทั้งขาเข้า และขาออก
+     */
+
 
     /**
      * ทำชื่อสถานีว่าง
@@ -35,8 +52,8 @@ public class Station {
     public boolean contains(String name) {
         return false;
     }
+
     public boolean remove(String name) {
         return false;
     }
-
 }
