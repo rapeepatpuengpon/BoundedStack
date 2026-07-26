@@ -1,7 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class TestRunner {
     static int pass = 0, fail = 0;
@@ -95,7 +92,7 @@ public class TestRunner {
         Station remove = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi")); 
         check("can remove", remove.remove("kanchanaburi"));
         check("size delete", remove.size() == 2);
-        check("remove song", !remove.contains("kanchanaburi"));
+        check("remove station", !remove.contains("kanchanaburi"));
     }
 
     private static void testObservers() {
@@ -107,6 +104,10 @@ public class TestRunner {
     }
 
     private static void testProducer() {
+        System.out.println("=== test Producer ===");
+        Station base = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi"));
+        check("new Station is ratchaburiphotharam",base.changeName("ratchaburi","photharam").equals("ratchaburiphotharam"));
+        System.out.println(base.changeName("ratchaburi","photharam"));
 
     }
 
