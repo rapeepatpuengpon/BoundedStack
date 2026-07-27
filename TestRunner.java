@@ -58,7 +58,7 @@ public class TestRunner {
            namenull = true;
         }
         check("name = null", namenull);
-    }
+        }
     /**
      * ฟังชันb test การเพิ่มสถานี
      */
@@ -69,6 +69,8 @@ public class TestRunner {
         check("size when add", add.size() == 1);
         check("found station", add.contains("bangkok"));
         check("add duplicate", !add.add("bangkok"));
+        
+        
 
         boolean threwemp = false;
         try {
@@ -85,7 +87,17 @@ public class TestRunner {
            threwnull = true;
         }
         check("station is null", threwnull);
+
+        Station full = new Station();
+        for (int i = 0; i < Station.max_station; i++) {
+            full.add("Station" + i);
+        }
+        check("can fill up to max_station", full.size() == Station.max_station);
+        check("add when full ", !full.add("one more"));
+        check("full Station stays at max_staion",
+        full.size() == Station.max_station);
     }
+    
 
     /**
      * ฟังชั่นสามารถลบได้
@@ -98,6 +110,8 @@ public class TestRunner {
         check("can remove", remove.remove("kanchanaburi"));
         check("size delete", remove.size() == 2);
         check("remove station", !remove.contains("kanchanaburi"));
+
+        
     }
     
     /**
@@ -118,8 +132,5 @@ public class TestRunner {
         System.out.println("=== test Producer ===");
         Station base = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi"));
         check("new Station is ratchaburiphotharam",base.changeName("ratchaburi","photharam").equals("ratchaburiphotharam"));
-        System.out.println(base.changeName("ratchaburi","photharam"));
-
     }
-
 }

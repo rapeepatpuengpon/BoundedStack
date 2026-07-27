@@ -94,14 +94,14 @@ public class Station {
     }
     /**
      * 
-     * @param name ชื่อสถานีที่ต้องการเพิ่ม
-     * @return true เมื่อสามารถเพิ่มได้ false เมื่อมีชื่อสถานีซ้ำ เป็น null และ ""
+     * @param name ชื่อสถานีที่ต้องการเพิ่ม 
+     * @return true เมื่อสามารถเพิ่มได้ false เมื่อมีชื่อสถานีซ้ำ เป็น null และ "" และ สถานีเต็ม
      * @throws IllegalArgumentException เมื่อ name = null และข้อความเปล่าๆ
      */
     public boolean add(String name) {
         if(name == null || name == "") throw new IllegalArgumentException();
         if(nameStation.contains(name)) return false;
-        if(nameStation.size() > max_station) return false;
+        if(nameStation.size() >= max_station) return false;
         nameStation.add(name);
         return true;
     }
