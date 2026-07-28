@@ -84,22 +84,57 @@ public class Station {
         return nameStation.contains(name);
     }
     
-     /**
+    /**
      * เอาชื่อสถานีและลบชื่อสถานีบนสุดออก
      * @return ชื่อสถานีที่อยู่บนสุด
      * @throws EmptyStackException เมื่อว่าง
      */
-    public String pop() {
+   public String pop() {
         if (isEmpty()) throw new EmptyStackException();
         String top = nameStation.remove(nameStation.size() - 1);
         checkRep();
         return top;
     }
+
+    /**
+     * 
+     * @param name ชื่อสถานีที่ต้องการเพิ่ม 
+     * @return true เมื่อสามารถเพิ่มได้ false เมื่อมีชื่อสถานีซ้ำ เป็น null และ "" และ สถานีเต็ม
+     * @throws IllegalArgumentException เมื่อ name = null เป็นข้อความเปล่าๆ มีชื่อซ้ำและใส่จนเต็ม 
+     */
+    public void push(String name) {
+        if(name == null || name == "") throw new IllegalArgumentException();
+        if(nameStation.contains(name)) throw new IllegalArgumentException();
+        if(isFull()) throw new IllegalArgumentException();
+        nameStation.add(name);
+    }
+
+    /**
+     * ฟังชันเช็คว่าสถานีมีชื่อว่างไหม
+     * 
+     * @return true เมื่อชื่อว่าง
+     */
     public boolean isEmpty() {
         return nameStation.isEmpty();
     }
 
-    
+    /***
+     * ฟังชันเช็คว่าสถานีมีชื่อเต็มรึยัง
+     *
+     * @return true เมื่อชื่อเต็ม
+     */
+    public boolean isFull() {
+        return nameStation.size() >= max_station;
+    }
+
+    /***
+     * อ่านชื่อสถานี โดยไม่ลบชื่อออก
+     * @return ส่งขนาดของ namestation กลับ
+     */
+    public String peek() {
+        if (isEmpty()) throw new EmptyStackException();
+        return nameStation.get(nameStation.size());
+    }
 
     /**
      * ฟังชันแก้ชื่อซ้ำสถานนี

@@ -24,6 +24,7 @@ public class TestRunner {
         System.out.println("=== Test ===");
 
         testCreater();
+        testpush();
         testPop();
         testObservers();
         testProducer();
@@ -59,7 +60,49 @@ public class TestRunner {
         }
         check("name = null", namenull);
         }
+    /**
+     * ฟังชันb test การเพิ่มสถานี
+     */
+    private static void testpush() {
+        System.out.println("Test push");
+        Station add = new Station();
+        add.push("bangkok");
+        check("size when add", add.size() == 1);
+        check("found station", add.contains("bangkok"));
+        
+        boolean add_duplicate = false;
+        try {
+            add.push("bangkok");
+        } catch (IllegalArgumentException e) {
+           add_duplicate = true;
+        }
+        check("station is duplicate", add_duplicate);
 
+        boolean threwemp = false;
+        try {
+            add.push("");
+        } catch (IllegalArgumentException e) {
+           threwemp = true;
+        }
+        check("station is emply", threwemp);
+
+        boolean threwnull = false;
+        try {
+            add.push(null);
+        } catch (IllegalArgumentException e) {
+           threwnull = true;
+        }
+        check("station is null", threwnull);
+
+        Station full = new Station();
+        for (int i = 0; i < Station.max_station; i++) {
+            full.push("Station" + i);
+        }
+        check("can fill up to max_station", full.size() == Station.max_station);
+        check("add when full ", full.isFull());
+        check("full Station stays at max_staion",full.size() == Station.max_station);
+    }
+    
     /**
      * ฟังชั่นสามารถลบได้
      * stack จะลดลงเมื่อ pop 
@@ -84,6 +127,8 @@ public class TestRunner {
         }
         check("pop on empty stack throws", popOnEmpty);
     }
+        
+    
     
     /**
      * ดึงค่าสถานนี
