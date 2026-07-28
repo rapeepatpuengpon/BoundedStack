@@ -84,59 +84,33 @@ public class Station {
         return nameStation.contains(name);
     }
     
-    /**
-     * 
-     * @param name ชื่อสถานีที่ต้องการลบ
-     * @return true ถ้าลบได้ , false ถ้าไม่เจอสถานีนี้
-     * @throws IllegalArgumentException เมื่อ name = null
+     /**
+     * เอาชื่อสถานีและลบชื่อสถานีบนสุดออก
+     * @return ชื่อสถานีที่อยู่บนสุด
+     * @throws EmptyStackException เมื่อว่าง
      */
-   public boolean remove(String name) {
-    if (name == null) throw new IllegalArgumentException("name is null");
-
-    boolean remove = nameStation.remove(name);
-    if (remove) {
+    public String pop() {
+        if (isEmpty()) throw new EmptyStackException();
+        String top = nameStation.remove(nameStation.size() - 1);
         checkRep();
+        return top;
     }
-    return remove;
-}
-    /**
-     * 
-     * @param name ชื่อสถานีที่ต้องการเพิ่ม 
-     * @return true เมื่อสามารถเพิ่มได้ false เมื่อมีชื่อสถานีซ้ำ เป็น null และ "" และ สถานีเต็ม
-     * @throws IllegalArgumentException เมื่อ name = null เป็นข้อความเปล่าๆ มีชื่อซ้ำ และใส่จนเต็ม 
-     */
-    public void push(String name) {
-        if(name == null || name == "") throw new IllegalArgumentException();
-        if(nameStation.contains(name)) throw new IllegalArgumentException();
-        if(isFull()) throw new IllegalArgumentException();
-        nameStation.add(name);
-    }
-
-    /**
-     * ฟังชันเช็คว่าสถานีมีชื่อว่างไหม
-     * 
-     * @return true เมื่อชื่อว่าง
-     */
     public boolean isEmpty() {
         return nameStation.isEmpty();
     }
 
-    /***
-     * ฟังชันเช็คว่าสถานีมีชื่อเต็มรึยัง
-     *
-     * @return true เมื่อชื่อเต็ม
+    /**
+     * 
+     * @param name ชื่อสถานีที่ต้องการเพิ่ม 
+     * @return true เมื่อสามารถเพิ่มได้ false เมื่อมีชื่อสถานีซ้ำ เป็น null และ "" และ สถานีเต็ม
+     * @throws IllegalArgumentException เมื่อ name = null และข้อความเปล่าๆ
      */
-    public boolean isFull() {
-        return nameStation.size() >= max_station;
-    }
-
-    /***
-     * อ่านชื่อสถานี โดยไม่ลบชื่อออก
-     * @return ส่งขนาดของ namestation กลับ
-     */
-    public String peek() {
-        if (isEmpty()) throw new EmptyStackException();
-        return nameStation.get(nameStation.size());
+    public boolean add(String name) {
+        if(name == null || name == "") throw new IllegalArgumentException();
+        if(nameStation.contains(name)) return false;
+        if(nameStation.size() >= max_station) return false;
+        nameStation.add(name);
+        return true;
     }
 
     /**
