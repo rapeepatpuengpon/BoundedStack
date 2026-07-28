@@ -110,9 +110,15 @@ public class TestRunner {
         check("can remove", remove.remove("kanchanaburi"));
         check("size delete", remove.size() == 2);
         check("remove station", !remove.contains("kanchanaburi"));
-
-        
+        check("remove missing station", !remove.remove("nope"));
+        check("failed remove leaves size unchanged", remove.size() == 2);
+        remove.remove("ratchaburi");
+        remove.remove("phetburi");
+        check("remove all empty", remove.size() == 0);
+        check("remove on empty station ", !remove.remove("ratchaburi"));
     }
+        
+    
     
     /**
      * ดึงค่าสถานนี

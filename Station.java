@@ -86,12 +86,18 @@ public class Station {
     /**
      * 
      * @param name ชื่อสถานีที่ต้องการลบ
-     * @return true เมื่่อสามารถลบได้
+     * @return true ถ้าลบได้ , false ถ้าไม่เจอสถานีนี้
+     * @throws IllegalArgumentException เมื่อ name = null
      */
-    public boolean remove(String name) {
-         nameStation.remove(name);
-        return true;
+   public boolean remove(String name) {
+    if (name == null) throw new IllegalArgumentException("name is null");
+
+    boolean remove = nameStation.remove(name);
+    if (remove) {
+        checkRep();
     }
+    return remove;
+}
     /**
      * 
      * @param name ชื่อสถานีที่ต้องการเพิ่ม 
