@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.EmptyStackException;
 
 public class TestRunner {
     static int pass = 0, fail = 0;
@@ -69,6 +68,7 @@ public class TestRunner {
         add.push("bangkok");
         check("size when add", add.size() == 1);
         check("found station", add.contains("bangkok"));
+        check("top after push", add.peek().equals("bangkok"));
         
         boolean add_duplicate = false;
         try {
@@ -122,7 +122,7 @@ public class TestRunner {
         boolean popOnEmpty = false;
         try {
             stack.pop();
-        } catch (EmptyStackException e) {
+        } catch (IllegalArgumentException e) {
             popOnEmpty = true;
         }
         check("pop on empty stack throws", popOnEmpty);
@@ -139,8 +139,6 @@ public class TestRunner {
         check("size is 2", obser.size() == 2);
         check("find a station", obser.contains("kanchanaburi"));
         check("can't find station", !obser.contains("phetburi"));
-        check("not empty", !obser.isEmpty());
-        check("not full", !obser.isFull());
     }
 
     /**

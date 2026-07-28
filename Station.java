@@ -32,7 +32,7 @@ public class Station {
 
     private void checkRep() {
         assert nameStation != null : "nameStation is not null" ;
-        assert nameStation.size() < max_station;
+        assert nameStation.size() <= max_station;
 
         Set<String> seen = new HashSet<>();
         for(String s : nameStation) {
@@ -90,7 +90,7 @@ public class Station {
      * @throws EmptyStackException เมื่อว่าง
      */
    public String pop() {
-        if (isEmpty()) throw new EmptyStackException();
+        if (isEmpty()) throw new IllegalArgumentException();
         String top = nameStation.remove(nameStation.size() - 1);
         checkRep();
         return top;
@@ -107,6 +107,7 @@ public class Station {
         if(nameStation.contains(name)) throw new IllegalArgumentException();
         if(isFull()) throw new IllegalArgumentException();
         nameStation.add(name);
+        checkRep();
     }
 
     /**
@@ -129,11 +130,11 @@ public class Station {
 
     /***
      * อ่านชื่อสถานี โดยไม่ลบชื่อออก
-     * @return ส่งขนาดของ namestation กลับ
+     * @return ส่งชื่อของ namestation กลับ
      */
     public String peek() {
-        if (isEmpty()) throw new EmptyStackException();
-        return nameStation.get(nameStation.size());
+        if (isEmpty()) throw new IllegalArgumentException();
+        return nameStation.get(nameStation.size()-1);
     }
 
     /**
