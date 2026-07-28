@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,14 +103,40 @@ public class Station {
      * 
      * @param name ชื่อสถานีที่ต้องการเพิ่ม 
      * @return true เมื่อสามารถเพิ่มได้ false เมื่อมีชื่อสถานีซ้ำ เป็น null และ "" และ สถานีเต็ม
-     * @throws IllegalArgumentException เมื่อ name = null และข้อความเปล่าๆ
+     * @throws IllegalArgumentException เมื่อ name = null เป็นข้อความเปล่าๆ มีชื่อซ้ำ และใส่จนเต็ม 
      */
-    public boolean add(String name) {
+    public void push(String name) {
         if(name == null || name == "") throw new IllegalArgumentException();
-        if(nameStation.contains(name)) return false;
-        if(nameStation.size() >= max_station) return false;
+        if(nameStation.contains(name)) throw new IllegalArgumentException();
+        if(isFull()) throw new IllegalArgumentException();
         nameStation.add(name);
-        return true;
+    }
+
+    /**
+     * ฟังชันเช็คว่าสถานีมีชื่อว่างไหม
+     * 
+     * @return true เมื่อชื่อว่าง
+     */
+    public boolean isEmpty() {
+        return nameStation.isEmpty();
+    }
+
+    /***
+     * ฟังชันเช็คว่าสถานีมีชื่อเต็มรึยัง
+     *
+     * @return true เมื่อชื่อเต็ม
+     */
+    public boolean isFull() {
+        return nameStation.size() >= max_station;
+    }
+
+    /***
+     * อ่านชื่อสถานี โดยไม่ลบชื่อออก
+     * @return ส่งขนาดของ namestation กลับ
+     */
+    public String peek() {
+        if (isEmpty()) throw new EmptyStackException();
+        return nameStation.get(nameStation.size());
     }
 
     /**

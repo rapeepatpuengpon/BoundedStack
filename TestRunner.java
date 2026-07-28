@@ -13,7 +13,7 @@ public class TestRunner {
         }
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         boolean assertsOn = false;
         assert assertsOn = true;
         if (!assertsOn) {
@@ -23,7 +23,7 @@ public class TestRunner {
         System.out.println("=== Test ===");
 
         testCreater();
-        testAdd();
+        testpush();
         testRemove();
         testObservers();
         testProducer();
@@ -62,19 +62,24 @@ public class TestRunner {
     /**
      * ฟังชันb test การเพิ่มสถานี
      */
-    private static void testAdd() {
-        System.out.println("Test Add");
+    private static void testpush() {
+        System.out.println("Test push");
         Station add = new Station();
-        check("can add", add.add("bangkok"));
+        add.push("bangkok");
         check("size when add", add.size() == 1);
         check("found station", add.contains("bangkok"));
-        check("add duplicate", !add.add("bangkok"));
         
-        
+        boolean add_duplicate = false;
+        try {
+            add.push("bangkok");
+        } catch (IllegalArgumentException e) {
+           add_duplicate = true;
+        }
+        check("station is duplicate", add_duplicate);
 
         boolean threwemp = false;
         try {
-            new Station(Arrays.asList(""));
+            add.push("");
         } catch (IllegalArgumentException e) {
            threwemp = true;
         }
@@ -82,7 +87,7 @@ public class TestRunner {
 
         boolean threwnull = false;
         try {
-            new Station(null);
+            add.push(null);
         } catch (IllegalArgumentException e) {
            threwnull = true;
         }
@@ -90,12 +95,11 @@ public class TestRunner {
 
         Station full = new Station();
         for (int i = 0; i < Station.max_station; i++) {
-            full.add("Station" + i);
+            full.push("Station" + i);
         }
         check("can fill up to max_station", full.size() == Station.max_station);
-        check("add when full ", !full.add("one more"));
-        check("full Station stays at max_staion",
-        full.size() == Station.max_station);
+        check("add when full ", full.isFull());
+        check("full Station stays at max_staion",full.size() == Station.max_station);
     }
     
 
