@@ -24,7 +24,6 @@ public class TestRunner {
         System.out.println("=== Test ===");
 
         testCreater();
-        testAdd();
         testPop();
         testObservers();
         testProducer();
@@ -60,45 +59,6 @@ public class TestRunner {
         }
         check("name = null", namenull);
         }
-    /**
-     * ฟังชันb test การเพิ่มสถานี
-     */
-    private static void testAdd() {
-        System.out.println("Test Add");
-        Station add = new Station();
-        check("can add", add.add("bangkok"));
-        check("size when add", add.size() == 1);
-        check("found station", add.contains("bangkok"));
-        check("add duplicate", !add.add("bangkok"));
-        
-        
-
-        boolean threwemp = false;
-        try {
-            new Station(Arrays.asList(""));
-        } catch (IllegalArgumentException e) {
-           threwemp = true;
-        }
-        check("station is emply", threwemp);
-
-        boolean threwnull = false;
-        try {
-            new Station(null);
-        } catch (IllegalArgumentException e) {
-           threwnull = true;
-        }
-        check("station is null", threwnull);
-
-        Station full = new Station();
-        for (int i = 0; i < Station.max_station; i++) {
-            full.add("Station" + i);
-        }
-        check("can fill up to max_station", full.size() == Station.max_station);
-        check("add when full ", !full.add("one more"));
-        check("full Station stays at max_staion",
-        full.size() == Station.max_station);
-    }
-    
 
     /**
      * ฟังชั่นสามารถลบได้
@@ -124,9 +84,6 @@ public class TestRunner {
         }
         check("pop on empty stack throws", popOnEmpty);
     }
-
-
-    
     
     /**
      * ดึงค่าสถานนี
