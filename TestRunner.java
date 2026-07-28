@@ -13,7 +13,7 @@ public class TestRunner {
         }
     }
 
-    public static void main() {
+    public static void main(String[] args) {
         boolean assertsOn = false;
         assert assertsOn = true;
         if (!assertsOn) {
@@ -23,8 +23,8 @@ public class TestRunner {
         System.out.println("=== Test ===");
 
         testCreater();
-        testAdd();
-        testRemove();
+        testpush();
+        testPop();
         testObservers();
         testProducer();
 
@@ -62,19 +62,25 @@ public class TestRunner {
     /**
      * ฟังชันb test การเพิ่มสถานี
      */
-    private static void testAdd() {
-        System.out.println("Test Add");
+    private static void testpush() {
+        System.out.println("Test push");
         Station add = new Station();
-        check("can add", add.add("bangkok"));
+        add.push("bangkok");
         check("size when add", add.size() == 1);
         check("found station", add.contains("bangkok"));
-        check("add duplicate", !add.add("bangkok"));
+        check("top after push", add.peek().equals("bangkok"));
         
-        
+        boolean add_duplicate = false;
+        try {
+            add.push("bangkok");
+        } catch (IllegalArgumentException e) {
+           add_duplicate = true;
+        }
+        check("station is duplicate", add_duplicate);
 
         boolean threwemp = false;
         try {
-            new Station(Arrays.asList(""));
+            add.push("");
         } catch (IllegalArgumentException e) {
            threwemp = true;
         }
@@ -82,7 +88,7 @@ public class TestRunner {
 
         boolean threwnull = false;
         try {
-            new Station(null);
+            add.push(null);
         } catch (IllegalArgumentException e) {
            threwnull = true;
         }
@@ -90,32 +96,36 @@ public class TestRunner {
 
         Station full = new Station();
         for (int i = 0; i < Station.max_station; i++) {
-            full.add("Station" + i);
+            full.push("Station" + i);
         }
         check("can fill up to max_station", full.size() == Station.max_station);
-        check("add when full ", !full.add("one more"));
-        check("full Station stays at max_staion",
-        full.size() == Station.max_station);
+        check("add when full ", full.isFull());
+        check("full Station stays at max_staion",full.size() == Station.max_station);
     }
     
-
     /**
      * ฟังชั่นสามารถลบได้
-     * ลบขนาด
-     * เช็คสถานียังอยู่ไหม
+     * stack จะลดลงเมื่อ pop 
+     * ตัวที่ pop ถูกเอาออกไปแล้วจะไม่เจอใน stack อีก
+     * stack จะว่างเมื่อ pop ครบทุกตัว
      */
-    private static void testRemove() {
-        System.out.println("=== test Remove ===");
-        Station remove = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi")); 
-        check("can remove", remove.remove("kanchanaburi"));
-        check("size delete", remove.size() == 2);
-        check("remove station", !remove.contains("kanchanaburi"));
-        check("remove missing station", !remove.remove("nope"));
-        check("failed remove leaves size unchanged", remove.size() == 2);
-        remove.remove("ratchaburi");
-        remove.remove("phetburi");
-        check("remove all empty", remove.size() == 0);
-        check("remove on empty station ", !remove.remove("ratchaburi"));
+    private static void testPop() {
+        System.out.println("=== test pop ===");
+        Station stack = new Station(Arrays.asList("ratchaburi", "kanchanaburi", "phetburi"));
+        check("pop return top", stack.pop().equals("phetburi"));
+        check("size after pop", stack.size() == 2);
+        check("pop station remove", !stack.contains("phetburi"));
+        check("pop next top", stack.pop().equals("kanchanaburi"));
+        check("pop last remaining", stack.pop().equals("ratchaburi"));
+        check("stack empty after pop all", stack.isEmpty());
+ 
+        boolean popOnEmpty = false;
+        try {
+            stack.pop();
+        } catch (IllegalArgumentException e) {
+            popOnEmpty = true;
+        }
+        check("pop on empty stack throws", popOnEmpty);
     }
         
     
