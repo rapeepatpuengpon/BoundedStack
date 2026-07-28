@@ -139,6 +139,8 @@ public class TestRunner {
         check("size is 2", obser.size() == 2);
         check("find a station", obser.contains("kanchanaburi"));
         check("can't find station", !obser.contains("phetburi"));
+        check("not empty", !obser.isEmpty());
+        check("not full", !obser.isFull());
     }
 
     /**
